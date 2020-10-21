@@ -1,73 +1,67 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        cashflow
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+  <div>
+    <div class="incomes">
+      <p>Доходы:</p>
+      <hr>
+      <p>Заработок:{{profession.salary}}</p>
+      <p>Дивиденты:</p>
+      <p>Недвижимость:</p>
+      <p>Бизнес:</p>
+    </div>
+    <div  class="expenses">
+      <p>Расходы:</p>
+      <hr>
+      <p>Налоги:{{profession.taxes}}</p>
+      <p>Оплата закладной на дом:{{profession.homeMortgagePayment}}</p>
+      <p>Оплата кредита на образование:{{profession.schoolLoanPayment}}</p>
+      <p>Оплата кредита на автомобиль:{{profession.carLoanPayment}}</p>
+      <p>Выплаты по кредитной карточке:{{profession.creditCardPayment}}</p>
+      <p>Розничные расходы:{{profession.retailPayment}}</p>
+      <p>Другие расходы:{{profession.otherExpenses}}</p>
+      <p>Расходы на детей:</p>
+      <p>Оплата кредита банка:</p>
+    </div>
+    <p>Ежемесячный доход:</p>
+
+    <div class="incomes">
+      <p>Активы:</p>
+      <hr>
+      <p>Акции/Взаимные фонды/Депозиты:</p>
+      <p>Недвижимость:</p>
+      <p>Бизнес:</p>
+    </div>
+    <div  class="expenses">
+      <p>Пассивы:</p>
+      <hr>
+      <p>Закладная на дом:</p>
+      <p>Кредит на образование:</p>
+      <p>Кредит на автомобиль:</p>
+      <p>Долг по кредитной карточке:</p>
+      <p>Розничный долг:</p>
+      <p>По закладным:</p>
+      <p>Пассивы(бизнес):</p>
+      <p>Кредит банка:</p>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+  import {profession} from '~/static/profession'
+
+  export default {
+    data(){
+      return{
+        profession: profession[0],
+      }
+    },
+    mounted() {
+      console.log(profession)
+    }
+  }
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
+  .expenses, .incomes{
+    border: 1px solid black;
+  }
 </style>
