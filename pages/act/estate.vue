@@ -16,6 +16,7 @@
 
   export default {
     middleware: ['checkUser'],
+    layout: 'action',
 
     data() {
       return {
@@ -34,10 +35,11 @@
       addAsset() {
         const {name, price, homeMortgage, downPay, cashFlow} = this
         const user = this.$store.state.user
+        const id = user.realEstate.length > 0 ? user.realEstate[user.realEstate.length - 1].id + 1 : 1
         const person = {
           ...user,
           cash: user.cash - this.downPay,
-          realEstate: [...user.realEstate, {name, price, homeMortgage, downPay, cashFlow}]
+          realEstate: [...user.realEstate, {id, name, price, homeMortgage, downPay, cashFlow}]
         }
         localStorage.setItem('user', JSON.stringify(person))
         this.$store.commit('setProfession', person)

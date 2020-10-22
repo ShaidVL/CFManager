@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="$router.push('/act')">Назад</button>
+    <button @click="$router.push('/act/sale')">Назад</button>
     <div>Добавить актив</div>
     <div>Наименование<input type="text"></div>
     <div>Количество<input type="text"></div>
@@ -16,6 +16,7 @@
   export default {
     middleware: ['checkUser'],
     layout: 'action',
+
     methods:{
       addAsset(){
 

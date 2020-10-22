@@ -4,7 +4,7 @@
     <button @click="chooseInvestmentPackage(Math.floor(Math.random()*12)+1)">получить рандомный</button>
     <strong>Начальный инфестиционный пакет</strong> или
     <button @click="showInvestmentPackage=!showInvestmentPackage">выбрать его</button>
-    наче нажмите <button @click="proceed">далее</button>
+    иначе нажмите <button @click="proceed">далее</button>
     <div v-if="showInvestmentPackage">
       <div v-for="item in investmentPackage" :key="item.id">
         <div>Наличные: {{item.cash}}</div>

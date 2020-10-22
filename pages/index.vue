@@ -4,7 +4,7 @@
     <div class="incomes">
       <p>Доходы:</p>
       <hr>
-      <div>Пассивный доход:{{passiveIncome}} Общий доход:{{totalIncome}}</div>
+      <div>Пассивный доход:{{user.passiveIncome}} Общий доход:{{totalIncome}}</div>
       <hr>
       <p>Заработок:{{user.salary}}</p>
       <p>Дивиденты:</p>
@@ -22,6 +22,8 @@
     <div class="expenses">
       <p>Расходы:</p>
       <hr>
+      <div>Общий расход:{{user.totalExpenses}}</div>
+      <hr>
       <p>Налоги:{{user.taxes}}</p>
       <p>Оплата закладной на дом:{{user.homeMortgagePayment}}</p>
       <p>Оплата кредита на образование:{{user.schoolLoanPayment}}</p>
@@ -32,7 +34,7 @@
       <p>Расходы на детей:</p>
       <p>Оплата кредита банка:</p>
     </div>
-    <p>Ежемесячный доход:</p>
+    <p>Ежемесячный доход: {{cashFlow}}</p>
 
     <div class="incomes">
       <p>Активы:</p>
@@ -57,11 +59,11 @@
     <div class="expenses">
       <p>Пассивы:</p>
       <hr>
-      <p>Закладная на дом:</p>
-      <p>Кредит на образование:</p>
-      <p>Кредит на автомобиль:</p>
-      <p>Долг по кредитной карточке:</p>
-      <p>Розничный долг:</p>
+      <p>Закладная на дом:{{user.homeMortgage}}</p>
+      <p>Кредит на образование:{{user.schoolLoans}}</p>
+      <p>Кредит на автомобиль:{{user.carLoans}}</p>
+      <p>Долг по кредитной карточке:{{user.creditCards}}</p>
+      <p>Розничный долг:{{user.retailDebt}}</p>
       <p>По закладным:</p>
       <p>Пассивы(бизнес):</p>
       <p>Кредит банка:</p>
@@ -70,7 +72,7 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import {mapGetters} from 'vuex'
 
   export default {
     middleware: ['checkUser'],
@@ -79,14 +81,14 @@
       return {}
     },
     computed: {
-      ...mapState({
-        user: state => state.user
-      }),
-      passiveIncome() {
-        return this.user.realEstate.reduce((acc,estate)=>acc+Number(estate.cashFlow), 0) + this.user.business.reduce((acc,item)=>acc+Number(item.cashFlow), 0)
-      },
+      ...mapGetters([
+        'user'
+      ]),
       totalIncome() {
-        return this.passiveIncome + this.user.salary
+        return this.user.passiveIncome + this.user.salary
+      },
+      cashFlow() {
+        return this.totalIncome - this.user.totalExpenses
       },
     }
   }

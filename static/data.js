@@ -11,6 +11,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 2880,
     perChildExpenses: 640,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 400,
     homeMortgage: 202000,
     schoolLoans: 150000,
@@ -34,6 +37,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 2210,
     perChildExpenses: 480,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 400,
     homeMortgage: 143000,
     schoolLoans: 0,
@@ -57,6 +63,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 1650,
     perChildExpenses: 640,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 400,
     homeMortgage: 115000,
     schoolLoans: 78000,
@@ -80,6 +89,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 1090,
     perChildExpenses: 250,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 400,
     homeMortgage: 75000,
     schoolLoans: 12000,
@@ -103,6 +115,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 1000,
     perChildExpenses: 240,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 400,
     homeMortgage: 75000,
     schoolLoans: 12000,
@@ -126,6 +141,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 760,
     perChildExpenses: 180,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 400,
     homeMortgage: 50000,
     schoolLoans: 12000,
@@ -149,6 +167,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 710,
     perChildExpenses: 170,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 480,
     homeMortgage: 47000,
     schoolLoans: 6000,
@@ -172,6 +193,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 690,
     perChildExpenses: 160,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 520,
     homeMortgage: 46000,
     schoolLoans: 0,
@@ -195,6 +219,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 570,
     perChildExpenses: 140,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 750,
     homeMortgage: 38000,
     schoolLoans: 0,
@@ -218,6 +245,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 570,
     perChildExpenses: 140,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 710,
     homeMortgage: 38000,
     schoolLoans: 0,
@@ -241,6 +271,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 450,
     perChildExpenses: 110,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 670,
     homeMortgage: 31000,
     schoolLoans: 0,
@@ -264,6 +297,9 @@ export const profession = [
     retailPayment: 50,
     otherExpenses: 300,
     perChildExpenses: 70,
+    childrenAmount: 0,
+    childExpenses:0,
+    bankLoanPayment: 0,
     savings: 400,
     homeMortgage: 21000,
     schoolLoans: 0,
@@ -282,11 +318,13 @@ export const investmentPackage = [
     cash: 0,
     stocks: [
       {
+        id: 1,
         name: 'MYT4U',
         amount: 100,
         price: 20,
       },
       {
+        id: 2,
         name: 'OK4U',
         amount: 200,
         price: 30,
@@ -299,11 +337,13 @@ export const investmentPackage = [
     cash: 0,
     stocks: [
       {
+        id: 1,
         name: 'MYT4U',
         amount: 700,
         price: 40,
       },
       {
+        id: 2,
         name: 'OK4U',
         amount: 200,
         price: 50,
@@ -316,11 +356,13 @@ export const investmentPackage = [
     cash: 3000,
     stocks: [
       {
+        id: 1,
         name: 'MYT4U',
         amount: 100,
         price: 5,
       },
       {
+        id: 2,
         name: 'OK4U',
         amount: 100,
         price: 10,
@@ -340,6 +382,7 @@ export const investmentPackage = [
     stocks: [],
     realEstate: [
       {
+        id: 1,
         name: '4х кв. дом',
         price: 110000,
         homeMortgage: 90000,
@@ -353,6 +396,7 @@ export const investmentPackage = [
     cash: 3000,
     stocks: [
       {
+        id: 1,
         name: 'OK4U',
         amount: 500,
         price: 15,
@@ -360,6 +404,7 @@ export const investmentPackage = [
     ],
     realEstate: [
       {
+        id: 1,
         name: '2х кв. дом',
         price: 48000,
         homeMortgage: 45000,
@@ -373,6 +418,7 @@ export const investmentPackage = [
     cash: 10000,
     stocks: [
       {
+        id: 1,
         name: 'MYT4U',
         amount: 100,
         price: 20,
@@ -385,6 +431,7 @@ export const investmentPackage = [
     cash: 5000,
     stocks: [
       {
+        id: 1,
         name: 'MYT4U',
         amount: 300,
         price: 15,
@@ -392,6 +439,7 @@ export const investmentPackage = [
     ],
     realEstate: [
       {
+        id: 1,
         name: '2х кв. дом',
         price: 56000,
         homeMortgage: 49000,
@@ -405,6 +453,7 @@ export const investmentPackage = [
     cash: 12000,
     stocks: [
       {
+        id: 1,
         name: 'OK4U',
         amount: 400,
         price: 15,
@@ -412,6 +461,7 @@ export const investmentPackage = [
     ],
     realEstate: [
       {
+        id: 1,
         name: '2х кв. дом',
         price: 46000,
         homeMortgage: 42000,
@@ -425,6 +475,7 @@ export const investmentPackage = [
     cash: 0,
     stocks: [
       {
+        id: 1,
         name: 'OK4U',
         amount: 300,
         price: 20,
@@ -432,6 +483,7 @@ export const investmentPackage = [
     ],
     realEstate: [
       {
+        id: 1,
         name: '2х кв. дом',
         price: 64000,
         homeMortgage: 56000,
@@ -446,6 +498,7 @@ export const investmentPackage = [
     stocks: [],
     realEstate: [
       {
+        id: 1,
         name: '4х кв. дом',
         price: 90000,
         homeMortgage: 73000,
@@ -460,6 +513,7 @@ export const investmentPackage = [
     stocks: [],
     realEstate: [
       {
+        id: 1,
         name: '10 акров',
         price: 20000,
         homeMortgage: 0,
