@@ -9,7 +9,7 @@ export const profession = [
     carLoanPayment: 380,
     creditCardPayment: 270,
     retailPayment: 50,
-    otherExpenses:2880,
+    otherExpenses: 2880,
     perChildExpenses: 640,
     savings: 400,
     homeMortgage: 202000,
@@ -17,9 +17,13 @@ export const profession = [
     carLoans: 19000,
     creditCards: 9000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 6,
+    id: 2,
     name: 'пилот',
     salary: 9500,
     taxes: 2350,
@@ -36,9 +40,13 @@ export const profession = [
     carLoans: 15000,
     creditCards: 22000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 5,
+    id: 3,
     name: 'адвокат',
     salary: 7500,
     taxes: 1830,
@@ -55,6 +63,10 @@ export const profession = [
     carLoans: 11000,
     creditCards: 6000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
     id: 4,
@@ -74,9 +86,13 @@ export const profession = [
     carLoans: 7000,
     creditCards: 4000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 7,
+    id: 5,
     name: 'офис менеджер',
     salary: 4600,
     taxes: 910,
@@ -93,9 +109,13 @@ export const profession = [
     carLoans: 6000,
     creditCards: 3000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 8,
+    id: 6,
     name: 'учитель',
     salary: 3300,
     taxes: 630,
@@ -112,9 +132,13 @@ export const profession = [
     carLoans: 5000,
     creditCards: 3000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 11,
+    id: 7,
     name: 'медсестра',
     salary: 3100,
     taxes: 600,
@@ -131,9 +155,13 @@ export const profession = [
     carLoans: 5000,
     creditCards: 3000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 3,
+    id: 8,
     name: 'офицер полиции',
     salary: 3000,
     taxes: 580,
@@ -150,9 +178,13 @@ export const profession = [
     carLoans: 5000,
     creditCards: 2000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 2,
+    id: 9,
     name: 'водитель грузовика',
     salary: 2500,
     taxes: 460,
@@ -169,9 +201,13 @@ export const profession = [
     carLoans: 4000,
     creditCards: 2000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 9,
+    id: 10,
     name: 'секретарь',
     salary: 2500,
     taxes: 460,
@@ -188,9 +224,13 @@ export const profession = [
     carLoans: 4000,
     creditCards: 2000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
-    id: 10,
+    id: 11,
     name: 'механик',
     salary: 2000,
     taxes: 360,
@@ -207,6 +247,10 @@ export const profession = [
     carLoans: 3000,
     creditCards: 2000,
     retailDebt: 1000,
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
   },
   {
     id: 12,
@@ -226,23 +270,203 @@ export const profession = [
     carLoans: 3000,
     creditCards: 2000,
     retailDebt: 1000,
-  },
-  // {
-  //   name: '',
-  //   salary: 0,
-  //   taxes: 0,
-  //   homeMortgagePayment: 0,
-  //   schoolLoanPayment: 0,
-  //   carLoanPayment: 0,
-  //   creditCardPayment: 0,
-  //   retailPayment: 0,
-  //   otherExpenses: 0,
-  //   perChildExpenses: 0,
-  //   savings: 0,
-  //   homeMortgage: 0,
-  //   schoolLoans: 0,
-  //   carLoans: 0,
-  //   creditCards: 0,
-  //   retailDebt: 0,
-  // },
+    stocks: [],
+    realEstate: [],
+    business: [],
+    other: []
+  }
 ]
+export const investmentPackage = [
+  {
+    id: 1,
+    cash: 0,
+    stocks: [
+      {
+        name: 'MYT4U',
+        amount: 100,
+        price: 20,
+      },
+      {
+        name: 'OK4U',
+        amount: 200,
+        price: 30,
+      }
+    ],
+    realEstate: []
+  },
+  {
+    id: 2,
+    cash: 0,
+    stocks: [
+      {
+        name: 'MYT4U',
+        amount: 700,
+        price: 40,
+      },
+      {
+        name: 'OK4U',
+        amount: 200,
+        price: 50,
+      }
+    ],
+    realEstate: []
+  },
+  {
+    id: 3,
+    cash: 3000,
+    stocks: [
+      {
+        name: 'MYT4U',
+        amount: 100,
+        price: 5,
+      },
+      {
+        name: 'OK4U',
+        amount: 100,
+        price: 10,
+      }
+    ],
+    realEstate: []
+  },
+  {
+    id: 4,
+    cash: 23000,
+    stocks: [],
+    realEstate: []
+  },
+  {
+    id: 5,
+    cash: 3000,
+    stocks: [],
+    realEstate: [
+      {
+        name: '4х кв. дом',
+        price: 110000,
+        homeMortgage: 90000,
+        downPay: 20000,
+        cashFlow: 330,
+      }
+    ]
+  },
+  {
+    id: 6,
+    cash: 3000,
+    stocks: [
+      {
+        name: 'OK4U',
+        amount: 500,
+        price: 15,
+      }
+    ],
+    realEstate: [
+      {
+        name: '2х кв. дом',
+        price: 48000,
+        homeMortgage: 45000,
+        downPay: 3000,
+        cashFlow: 100,
+      }
+    ]
+  },
+  {
+    id: 7,
+    cash: 10000,
+    stocks: [
+      {
+        name: 'MYT4U',
+        amount: 100,
+        price: 20,
+      }
+    ],
+    realEstate: []
+  },
+  {
+    id: 8,
+    cash: 5000,
+    stocks: [
+      {
+        name: 'MYT4U',
+        amount: 300,
+        price: 15,
+      }
+    ],
+    realEstate: [
+      {
+        name: '2х кв. дом',
+        price: 56000,
+        homeMortgage: 49000,
+        downPay: 7000,
+        cashFlow: 210,
+      }
+    ]
+  },
+  {
+    id: 9,
+    cash: 12000,
+    stocks: [
+      {
+        name: 'OK4U',
+        amount: 400,
+        price: 15,
+      }
+    ],
+    realEstate: [
+      {
+        name: '2х кв. дом',
+        price: 46000,
+        homeMortgage: 42000,
+        downPay: 4000,
+        cashFlow: 120,
+      }
+    ]
+  },
+  {
+    id: 10,
+    cash: 0,
+    stocks: [
+      {
+        name: 'OK4U',
+        amount: 300,
+        price: 20,
+      }
+    ],
+    realEstate: [
+      {
+        name: '2х кв. дом',
+        price: 64000,
+        homeMortgage: 56000,
+        downPay: 8000,
+        cashFlow: 300,
+      }
+    ]
+  },
+  {
+    id: 11,
+    cash: 2000,
+    stocks: [],
+    realEstate: [
+      {
+        name: '4х кв. дом',
+        price: 90000,
+        homeMortgage: 73000,
+        downPay: 17000,
+        cashFlow: 320,
+      }
+    ]
+  },
+  {
+    id: 12,
+    cash: 8000,
+    stocks: [],
+    realEstate: [
+      {
+        name: '10 акров',
+        price: 20000,
+        homeMortgage: 0,
+        downPay: 20000,
+        cashFlow: 0,
+      }
+    ]
+  },
+]
+
