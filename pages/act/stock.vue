@@ -6,8 +6,8 @@
     <div>Количество<input v-model="amount" name="amount" type="number" @input="checkForDigit"></div>
     <div>Цена акции<input v-model="price" name="price" type="number" @input="checkForDigit"></div>
 
-    <div><input type="checkbox">Пассивный доход</div>
-    <div>Доход <input v-model="cashFlow" name="cashFlow" type="number" @input="checkForDigit"></div>
+    <div><input v-model="cashFlowAbility" type="checkbox">Пассивный доход</div>
+    <div>Доход <input v-model="cashFlow" name="cashFlow" type="number" @input="checkForDigit" :disabled="!cashFlowAbility"></div>
 
     <div>Цена покупки: {{total}}</div>
     <button @click="addAsset">Купить</button>
@@ -26,6 +26,7 @@
         amount:0,
         price:0,
         cashFlow:0,
+        cashFlowAbility:false,
       }
     },
     computed:{
@@ -35,13 +36,20 @@
     },
     methods:{
       addAsset(){
-        const {name, price, amount} = this
+        const {name, price, amount, cashFlow,cashFlowAbility} = this
         const user = this.$store.state.user
         const id = user.stocks.length > 0 ? user.stocks[user.stocks.length - 1].id + 1 : 1
         const person = {
           ...user,
           cash: user.cash - this.total,
-          stocks: [...user.stocks, {id, name, price, amount}]
+          stocks: [...user.stocks, {
+            id,
+            name,
+            price: Number(price),
+            amount: Number(amount),
+            cashFlow: Number(cashFlow),
+            cashFlowAbility
+          }]
         }
         localStorage.setItem('user', JSON.stringify(person))
         this.$store.commit('setProfession', person)

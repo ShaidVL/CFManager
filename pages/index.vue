@@ -8,6 +8,10 @@
       <hr>
       <p>Заработок:{{user.salary}}</p>
       <p>Дивиденты:</p>
+      <div v-for="dividend in this.dividends">
+        <div>{{dividend.name}}({{dividend.cashFlow}}*{{dividend.amount}})</div>
+        <div>Пассивный доход: {{dividend.cashFlow*dividend.amount}}</div>
+      </div>
       <p>Недвижимость:</p>
       <div v-for="realEstate in user.realEstate">
         <div>{{realEstate.name}}</div>
@@ -98,6 +102,9 @@
       },
       repayLiabilities() {
         return this.user.liabilities.filter(liability=>liability.repayAbility)
+      },
+      dividends() {
+        return this.user.stocks.filter(stock=>stock.cashFlowAbility)
       }
     }
   }

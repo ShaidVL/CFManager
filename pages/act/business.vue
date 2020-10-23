@@ -2,10 +2,11 @@
   <div>
     <button @click="$router.push('/act')">Назад</button>
     <div>Бизнес</div>
-    <div>Наименование<input v-model="name" type="text"></div>
-    <div>Стоимость<input v-model="price" name="price" type="text" @input="checkForDigit"></div>
-    <div>Долг<input v-model="debt" name="debt" type="text" @input="checkForDigit"></div>
-    <div>Пассивный доход<input v-model="cashFlow" name="cashFlow" type="text" @input="checkForDigit"></div>
+    <div>Наименование: <input v-model="name" type="text"></div>
+    <div>Стоимость: <input v-model="price" name="price" type="text" @input="checkForDigit" @change="onChange"></div>
+    <div>Долг: <input v-model="debt" name="debt" type="text" @input="checkForDigit" @change="onChange"></div>
+    <div><input v-model="minus" type="checkbox"> Отрицательный пассивный доход</div>
+    <div>Пассивный доход: <span v-if="minus">- </span><input v-model="cashFlow" name="cashFlow" type="text" @input="checkForDigit"></div>
 
     <div>Цена покупки: {{downPay}}</div>
     <button @click="addAsset">Купить</button>
@@ -24,6 +25,7 @@
         price: 0,
         debt: 0,
         cashFlow: 0,
+        minus: false,
       }
     },
     computed: {
@@ -39,7 +41,14 @@
         const person = {
           ...user,
           cash: user.cash - this.downPay,
-          business: [...user.business, {id, name, price, debt, downPay, cashFlow}]
+          business: [...user.business, {
+            id,
+            name,
+            price: Number(price),
+            debt: Number(debt),
+            downPay,
+            cashFlow: this.minus ? -Number(cashFlow) : Number(cashFlow)
+          }]
         }
         localStorage.setItem('user', JSON.stringify(person))
         this.$store.commit('setProfession', person)
@@ -56,6 +65,11 @@
           this[name] = '0'
         }
       },
+      onChange() {
+        if (Number(this.debt) > Number(this.price)) {
+          this.debt = this.price
+        }
+      }
     }
   }
 </script>

@@ -2,10 +2,12 @@
   <div>
     <button @click="$router.push('/act')">Назад</button>
     <div>Покупка недвижимости</div>
-    <div>Наименование<input v-model="name" type="text"></div>
-    <div>Стоимость<input v-model="price" name="price" type="text" @input="checkForDigit"></div>
-    <div>Ипотека<input v-model="homeMortgage" name="homeMortgage" type="text" @input="checkForDigit"></div>
-    <div>Пассивный доход<input v-model="cashFlow" name="cashFlow" type="text" @input="checkForDigit"></div>
+    <div>Наименование: <input v-model="name" type="text"></div>
+    <div>Стоимость: <input v-model="price" name="price" type="text" @input="checkForDigit" @change="onChange"></div>
+    <div>Ипотека: <input v-model="homeMortgage" name="homeMortgage" type="text" @input="checkForDigit" @change="onChange">
+    </div>
+    <div><input v-model="minus" type="checkbox"> Отрицательный пассивный доход</div>
+    <div>Пассивный доход:  <span v-if="minus">- </span><input v-model="cashFlow" name="cashFlow" type="text" @input="checkForDigit"></div>
 
     <div>Цена покупки: {{downPay}}</div>
     <button @click="addAsset">Купить</button>
@@ -24,6 +26,7 @@
         price: 0,
         homeMortgage: 0,
         cashFlow: 0,
+        minus: false,
       }
     },
     computed: {
@@ -39,7 +42,14 @@
         const person = {
           ...user,
           cash: user.cash - Number(this.downPay),
-          realEstate: [...user.realEstate, {id, name, price, homeMortgage, downPay, cashFlow}]
+          realEstate: [...user.realEstate, {
+            id,
+            name,
+            price: Number(price),
+            homeMortgage: Number(homeMortgage),
+            downPay,
+            cashFlow: this.minus ? -Number(cashFlow) : Number(cashFlow)
+          }]
         }
         localStorage.setItem('user', JSON.stringify(person))
         this.$store.commit('setProfession', person)
@@ -56,6 +66,11 @@
           this[name] = '0'
         }
       },
+      onChange() {
+        if (Number(this.homeMortgage) > Number(this.price)) {
+          this.homeMortgage = this.price
+        }
+      }
     }
   }
 </script>

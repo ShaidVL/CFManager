@@ -6,7 +6,7 @@
     <div>Количество: {{amount}}</div>
     <div>Цена акции: {{price}}</div>
     <hr>
-    <div>Количество<input v-model="saleAmount" name="saleAmount" type="text" @input="checkForDigit"></div>
+    <div>Количество<input v-model="saleAmount" name="saleAmount" type="text" @input="checkForDigit"  @change="onChange"></div>
     <div>Цена продажи<input v-model="salePrice" name="salePrice" type="text" @input="checkForDigit"></div>
     <hr>
     <div>Итого: {{total}} Выгода: {{benefit}}</div>
@@ -53,10 +53,10 @@
     methods: {
       removeAsset() {
         let stocks
-        if (this.saleAmount < this.amount) {
+        if (Number(this.saleAmount) < Number(this.amount)) {
           stocks = this.user.stocks.map(stock => stock.id !== this.id ? stock : ({
             ...stock,
-            amount: stock.amount - this.saleAmount
+            amount: stock.amount - Number(this.saleAmount)
           }))
         } else {
           stocks = this.user.stocks.filter(stock => stock.id !== this.id)
@@ -81,6 +81,11 @@
           this[name] = '0'
         }
       },
+      onChange() {
+        if (Number(this.saleAmount) > Number(this.amount)) {
+          this.saleAmount = this.amount
+        }
+      }
     }
   }
 </script>
