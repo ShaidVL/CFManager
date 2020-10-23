@@ -6,6 +6,7 @@
     <div>Количество: {{amount}}</div>
     <div>Цена акции: {{price}}</div>
     <hr>
+    <div>Количество<input v-model="saleAmount" name="saleAmount" type="text" @input="checkForDigit"></div>
     <div>Цена продажи<input v-model="salePrice" name="salePrice" type="text" @input="checkForDigit"></div>
     <hr>
     <div>Итого: {{total}} Выгода: {{benefit}}</div>
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
 
   export default {
     middleware: ['checkUser'],
@@ -25,32 +27,44 @@
         amount: 0,
         price: 0,
         cashFlow: 0,
+        saleAmount: 0,
         salePrice: 0,
       }
     },
     mounted() {
       this.id = Number(this.$route.query.id)
-      const stock = this.$store.state.user.stocks.find(stock => stock.id === this.id)
+      const stock = this.user.stocks.find(stock => stock.id === this.id)
       this.name = stock.name
       this.amount = stock.amount
       this.price = stock.price
       this.cashFlow = stock.cashFlow
     },
     computed: {
-      total(){
-        return Number(this.salePrice) * Number(this.amount)
+      ...mapGetters([
+        'user'
+      ]),
+      total() {
+        return Number(this.salePrice) * Number(this.saleAmount)
       },
       benefit() {
-        return this.total - Number(this.price) * Number(this.amount)
+        return this.total - Number(this.price) * Number(this.saleAmount)
       }
     },
     methods: {
       removeAsset() {
-        const user = this.$store.state.user
+        let stocks
+        if (this.saleAmount < this.amount) {
+          stocks = this.user.stocks.map(stock => stock.id !== this.id ? stock : ({
+            ...stock,
+            amount: stock.amount - this.saleAmount
+          }))
+        } else {
+          stocks = this.user.stocks.filter(stock => stock.id !== this.id)
+        }
         const person = {
-          ...user,
-          cash: user.cash + this.benefit,
-          stocks: user.stocks.filter(stock => stock.id !== this.id)
+          ...this.user,
+          cash: this.user.cash + this.total,
+          stocks
         }
         localStorage.setItem('user', JSON.stringify(person))
         this.$store.commit('setProfession', person)

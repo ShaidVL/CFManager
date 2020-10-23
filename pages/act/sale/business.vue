@@ -53,7 +53,7 @@
         const user = this.$store.state.user
         const person = {
           ...user,
-          cash: user.cash - this.downPay,
+          cash: user.cash + this.total,
           business: user.business.filter(item=>item.id!==this.id)
         }
         localStorage.setItem('user', JSON.stringify(person))

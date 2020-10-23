@@ -18,6 +18,9 @@
     <div>
       <button @click="$router.push('/act/cash')">Операции с наличными</button>
     </div>
+    <div>
+      <button @click="$router.push('/act/liabilties')">Операции с пассивами</button>
+    </div>
 
   </div>
 </template>

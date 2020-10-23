@@ -29,6 +29,15 @@
       <button @click="$router.push(`sale/business?id=${item.id}`)">Продать</button>
       <hr>
     </div>
+
+    <div v-for="item in user.other">
+      <div>Другое:</div>
+      <div>{{item.name}}</div>
+      <div>Количество: {{item.amount}}</div>
+      <div>Стоимость: {{item.price}}</div>
+      <button @click="$router.push(`sale/other?id=${item.id}`)">Продать</button>
+      <hr>
+    </div>
   </div>
 </template>
 

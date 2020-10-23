@@ -38,7 +38,7 @@
         const id = user.realEstate.length > 0 ? user.realEstate[user.realEstate.length - 1].id + 1 : 1
         const person = {
           ...user,
-          cash: user.cash - this.downPay,
+          cash: user.cash - Number(this.downPay),
           realEstate: [...user.realEstate, {id, name, price, homeMortgage, downPay, cashFlow}]
         }
         localStorage.setItem('user', JSON.stringify(person))

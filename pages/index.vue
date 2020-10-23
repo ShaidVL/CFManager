@@ -25,14 +25,15 @@
       <div>Общий расход:{{user.totalExpenses}}</div>
       <hr>
       <p>Налоги:{{user.taxes}}</p>
-      <p>Оплата закладной на дом:{{user.homeMortgagePayment}}</p>
-      <p>Оплата кредита на образование:{{user.schoolLoanPayment}}</p>
-      <p>Оплата кредита на автомобиль:{{user.carLoanPayment}}</p>
-      <p>Выплаты по кредитной карточке:{{user.creditCardPayment}}</p>
-      <p>Розничные расходы:{{user.retailPayment}}</p>
+      <p v-if="user.homeMortgagePayment">Оплата закладной на дом:{{user.homeMortgagePayment}}</p>
+      <p v-if="user.schoolLoanPayment">Оплата кредита на образование:{{user.schoolLoanPayment}}</p>
+      <p v-if="user.carLoanPayment">Оплата кредита на автомобиль:{{user.carLoanPayment}}</p>
+      <p v-if="user.creditCardPayment">Выплаты по кредитной карточке:{{user.creditCardPayment}}</p>
+      <p v-if="user.retailPayment">Розничные расходы:{{user.retailPayment}}</p>
+      <p v-for="liability in this.user.liabilities">{{liability.name}}: {{liability.monthlyPay}}</p>
       <p>Другие расходы:{{user.otherExpenses}}</p>
-      <p>Расходы на детей:</p>
-      <p>Оплата кредита банка:</p>
+      <p v-if="user.childrenAmount">Расходы на детей({{user.perChildExpenses}}*{{user.childrenAmount}}): {{user.childExpenses}}</p>
+      <p v-if="user.bankLoanPayment">Оплата кредита банка: {{user.bankLoanPayment}}</p>
     </div>
     <p>Ежемесячный доход: {{cashFlow}}</p>
 
@@ -55,18 +56,23 @@
         <div>Долг: {{item.debt}}</div>
         <div>Первый взнос: {{item.downPay}}</div>
       </div>
+      <p>Другое:</p>
+      <div v-for="item in user.other">
+        <div>{{item.name}}</div>
+        <div>Количество: {{item.amount}}</div>
+        <div>Стоимость: {{item.price}}</div>
+      </div>
     </div>
     <div class="expenses">
       <p>Пассивы:</p>
       <hr>
-      <p>Закладная на дом:{{user.homeMortgage}}</p>
-      <p>Кредит на образование:{{user.schoolLoans}}</p>
-      <p>Кредит на автомобиль:{{user.carLoans}}</p>
-      <p>Долг по кредитной карточке:{{user.creditCards}}</p>
-      <p>Розничный долг:{{user.retailDebt}}</p>
-      <p>По закладным:</p>
-      <p>Пассивы(бизнес):</p>
-      <p>Кредит банка:</p>
+      <p v-if="user.homeMortgage">Закладная на дом:{{user.homeMortgage}}</p>
+      <p v-if="user.schoolLoans">Кредит на образование:{{user.schoolLoans}}</p>
+      <p v-if="user.carLoans">Кредит на автомобиль:{{user.carLoans}}</p>
+      <p v-if="user.creditCards">Долг по кредитной карточке:{{user.creditCards}}</p>
+      <p v-if="user.retailDebt">Розничный долг:{{user.retailDebt}}</p>
+      <p v-if="user.bankLoan">Кредит банка: {{user.bankLoan}}</p>
+      <p v-for="liability in this.repayLiabilities">{{liability.name}}: {{liability.debt}}</p>
     </div>
   </div>
 </template>
@@ -90,6 +96,9 @@
       cashFlow() {
         return this.totalIncome - this.user.totalExpenses
       },
+      repayLiabilities() {
+        return this.user.liabilities.filter(liability=>liability.repayAbility)
+      }
     }
   }
 </script>
