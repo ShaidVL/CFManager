@@ -26,6 +26,10 @@
       <button @click="$router.push('/act/liabilties')">Операции с пассивами</button>
     </div>
     <hr>
+    <div v-if="showFastTrackBtn">
+      <button @click="goToFastTrack">Перейти на быстрый круг</button>
+      <hr>
+    </div>
     <div>
       <button @click="newGame">Новая игра</button>
     </div>
@@ -33,6 +37,8 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
+
   export default {
     middleware: ['checkUser'],
     layout: 'action',
@@ -42,11 +48,31 @@
         showAssets: false,
       }
     },
+    computed:{
+      ...mapGetters([
+        'user'
+      ]),
+      showFastTrackBtn(){
+        return this.user.passiveIncome > this.user.totalExpenses
+      }
+    },
     methods: {
       newGame() {
         localStorage.removeItem('user')
         this.$store.commit('newGame')
         this.$router.push('/profession')
+      },
+      goToFastTrack(){
+        const person = {
+        ...this.user,
+          fastTrack: true,
+          cash: Math.round(this.user.passiveIncome/1000) *100000,
+          initialCashFlow: Math.round(this.user.passiveIncome/1000) *100000,
+          business:[]
+      }
+        localStorage.setItem('user', JSON.stringify(person))
+        this.$store.commit('setProfession', person)
+        this.$router.push('/fast-track')
       },
     }
   }

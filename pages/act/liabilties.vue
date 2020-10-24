@@ -7,6 +7,10 @@
       <button @click="payTotalDebt">Выплатить общий долг(дом, машина, обучение...)</button>
     </div>
     <hr>
+    <div v-if="bankrupt">
+      <button @click="removeHalfDebts">Списать половину долгов</button>
+      <hr>
+    </div>
     <div>
       <input v-model="getCredit" name="getCredit" type="text" @input="checkForDigit">
       <button @click="getLoan" :disabled="!getCreditIsValid">Получить кредит банка</button>
@@ -88,32 +92,64 @@
       },
       repayLiabilities() {
         return this.user.liabilities.filter(liability => liability.repayAbility)
+      },
+      bankrupt() {
+        return this.user.bankrupt
+          && this.user.stocks.length === 0
+          && this.user.realEstate.length === 0
+          && this.user.business.length === 0
+          && this.user.other.length === 0
+          && this.user.cash < 1000
       }
     },
     methods: {
       payTotalDebt() {
         if (this.user.totalDebt > 0) {
-          const person = {
-            ...this.user,
-            cash: this.user.cash - this.user.totalDebt,
-            homeMortgagePayment: 0,
-            schoolLoanPayment: 0,
-            carLoanPayment: 0,
-            creditCardPayment: 0,
-            retailPayment: 0,
-            homeMortgage: 0,
-            schoolLoans: 0,
-            carLoans: 0,
-            creditCards: 0,
-            retailDebt: 0,
+          if (this.user.totalDebt > this.user.cash) {
+            let sum = (this.user.totalDebt - this.user.cash)
+            sum = sum - sum % 1000 + 1000
+            alert(`Вам нехватает средств. нужен кредит минимум на ${sum}`)
+          } else {
+            const person = {
+              ...this.user,
+              cash: this.user.cash - this.user.totalDebt,
+              homeMortgagePayment: 0,
+              schoolLoanPayment: 0,
+              carLoanPayment: 0,
+              creditCardPayment: 0,
+              retailPayment: 0,
+              homeMortgage: 0,
+              schoolLoans: 0,
+              carLoans: 0,
+              creditCards: 0,
+              retailDebt: 0,
+            }
+            localStorage.setItem('user', JSON.stringify(person))
+            this.$store.commit('setProfession', person)
+            this.$router.push('/')
           }
-          localStorage.setItem('user', JSON.stringify(person))
-          this.$store.commit('setProfession', person)
-          this.$router.push('/')
         }
       },
+      removeHalfDebts() {
+        const person = {
+          ...this.user,
+          carLoanPayment: this.user.carLoanPayment / 2,
+          creditCardPayment: this.user.creditCardPayment / 2,
+          retailPayment: this.user.retailPayment / 2,
+          carLoans: this.user.carLoans / 2,
+          creditCards: this.user.creditCards / 2,
+          retailDebt: this.user.retailDebt / 2,
+        }
+        localStorage.setItem('user', JSON.stringify(person))
+        this.$store.commit('setProfession', person)
+        if(this.cashFlow < 0){
+            alert(`Конец игры`)
+        }
+        this.$router.push('/')
+
+      },
       getLoan() {
-        if(Number(this.getCredit)!==0){
+        if (Number(this.getCredit) !== 0) {
           const person = {
             ...this.user,
             cash: this.user.cash + Number(this.getCredit),
@@ -125,22 +161,27 @@
           this.$router.push('/')
         }
       },
-      checkSum(){
-        if(this.user.bankLoan < Number(this.repayCredit)){
-          this.repayCredit=this.user.bankLoan
+      checkSum() {
+        if (this.user.bankLoan < Number(this.repayCredit)) {
+          this.repayCredit = this.user.bankLoan
         }
       },
       repayLoan() {
-        if(Number(this.repayCredit)!==0){
-          const person = {
-            ...this.user,
-            cash: this.user.cash - Number(this.repayCredit),
-            bankLoan: this.user.bankLoan - Number(this.repayCredit),
-            bankLoanPayment: this.user.bankLoanPayment - Number(this.repayCredit) / 10,
+        if (Number(this.repayCredit) !== 0) {
+          if (Number(this.repayCredit) > this.user.cash) {
+            let sum =this.user.cash - this.user.cash % 1000
+            alert(`Вам нехватает средств. Вы можете погасить максимум ${sum}`)
+          } else {
+            const person = {
+              ...this.user,
+              cash: this.user.cash - Number(this.repayCredit),
+              bankLoan: this.user.bankLoan - Number(this.repayCredit),
+              bankLoanPayment: this.user.bankLoanPayment - Number(this.repayCredit) / 10,
+            }
+            localStorage.setItem('user', JSON.stringify(person))
+            this.$store.commit('setProfession', person)
+            this.$router.push('/')
           }
-          localStorage.setItem('user', JSON.stringify(person))
-          this.$store.commit('setProfession', person)
-          this.$router.push('/')
         }
       },
       addChild() {
@@ -158,30 +199,42 @@
       addLiability() {
         const {liabilityName, liabilityMonthlyPay, liabilityDownPay, liabilityRepayAbility, liabilityDebt} = this
         const id = this.user.liabilities.length > 0 ? this.user.liabilities[this.user.liabilities.length - 1].id + 1 : 1
-        const person = {
-          ...this.user,
-          cash: this.user.cash - Number(liabilityDownPay),
-          liabilities: [...this.user.liabilities, {
-            id,
-            name: liabilityName,
-            monthlyPay: liabilityMonthlyPay,
-            repayAbility: liabilityRepayAbility,
-            debt: liabilityDebt
-          }]
+        if (Number(liabilityDownPay) > this.user.cash) {
+          let sum = Number(liabilityDownPay) - this.user.cash
+          sum = sum - sum % 1000 + 1000
+          alert(`Вам нехватает средств. нужен кредит минимум на ${sum}`)
+        } else {
+          const person = {
+            ...this.user,
+            cash: this.user.cash - Number(liabilityDownPay),
+            liabilities: [...this.user.liabilities, {
+              id,
+              name: liabilityName,
+              monthlyPay: liabilityMonthlyPay,
+              repayAbility: liabilityRepayAbility,
+              debt: liabilityDebt
+            }]
+          }
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
+          this.$router.push('/')
         }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-        this.$router.push('/')
       },
       removeLiability(liability) {
-        const person = {
-          ...this.user,
-          cash: this.user.cash - Number(liability.debt),
-          liabilities: this.user.liabilities.filter(item => item.id !== liability.id),
+        if (Number(liability.debt) > this.user.cash) {
+          let sum = (Number(liability.debt) - this.user.cash)
+          sum = sum - sum % 1000 + 1000
+          alert(`Вам нехватает средств. нужен кредит минимум на ${sum}`)
+        } else {
+          const person = {
+            ...this.user,
+            cash: this.user.cash - Number(liability.debt),
+            liabilities: this.user.liabilities.filter(item => item.id !== liability.id),
+          }
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
+          this.$router.push('/')
         }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-        this.$router.push('/')
       },
       checkForDigit(event) {
         const name = event.target.name
@@ -194,9 +247,9 @@
           this[name] = '0'
         }
         if (name === 'getCredit' || name === 'repayCredit') {
-          if (this[name] % 1000){
+          if (this[name] % 1000) {
             this[`${name}IsValid`] = false
-          }else{
+          } else {
             this[`${name}IsValid`] = true
           }
         }

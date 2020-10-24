@@ -38,21 +38,27 @@
         const {name, price, debt, downPay, cashFlow} = this
         const user = this.$store.state.user
         const id = user.business.length > 0 ? user.business[user.business.length - 1].id + 1 : 1
-        const person = {
-          ...user,
-          cash: user.cash - this.downPay,
-          business: [...user.business, {
-            id,
-            name,
-            price: Number(price),
-            debt: Number(debt),
-            downPay,
-            cashFlow: this.minus ? -Number(cashFlow) : Number(cashFlow)
-          }]
+        if (Number(downPay) > user.cash) {
+          let sum = (Number(downPay) - user.cash)
+          sum = sum - sum % 1000 + 1000
+          alert(`Вам нехватает средств. нужен кредит минимум на ${sum}`)
+        } else {
+          const person = {
+            ...user,
+            cash: user.cash - this.downPay,
+            business: [...user.business, {
+              id,
+              name,
+              price: Number(price),
+              debt: Number(debt),
+              downPay,
+              cashFlow: this.minus ? -Number(cashFlow) : Number(cashFlow)
+            }]
+          }
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
+          this.$router.push('/')
         }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-        this.$router.push('/')
       },
       checkForDigit(event) {
         const name = event.target.name

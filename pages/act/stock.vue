@@ -7,7 +7,8 @@
     <div>Цена акции<input v-model="price" name="price" type="number" @input="checkForDigit"></div>
 
     <div><input v-model="cashFlowAbility" type="checkbox">Пассивный доход</div>
-    <div>Доход <input v-model="cashFlow" name="cashFlow" type="number" @input="checkForDigit" :disabled="!cashFlowAbility"></div>
+    <div>Доход <input v-model="cashFlow" name="cashFlow" type="number" @input="checkForDigit"
+                      :disabled="!cashFlowAbility"></div>
 
     <div>Цена покупки: {{total}}</div>
     <button @click="addAsset">Купить</button>
@@ -20,40 +21,46 @@
     middleware: ['checkUser'],
     layout: 'action',
 
-    data(){
-      return{
-        name:'',
-        amount:0,
-        price:0,
-        cashFlow:0,
-        cashFlowAbility:false,
+    data() {
+      return {
+        name: '',
+        amount: 0,
+        price: 0,
+        cashFlow: 0,
+        cashFlowAbility: false,
       }
     },
-    computed:{
-      total(){
+    computed: {
+      total() {
         return Number(this.amount) * Number(this.price)
       }
     },
-    methods:{
-      addAsset(){
-        const {name, price, amount, cashFlow,cashFlowAbility} = this
+    methods: {
+      addAsset() {
+        const {name, price, amount, cashFlow, cashFlowAbility} = this
         const user = this.$store.state.user
         const id = user.stocks.length > 0 ? user.stocks[user.stocks.length - 1].id + 1 : 1
-        const person = {
-          ...user,
-          cash: user.cash - this.total,
-          stocks: [...user.stocks, {
-            id,
-            name,
-            price: Number(price),
-            amount: Number(amount),
-            cashFlow: Number(cashFlow),
-            cashFlowAbility
-          }]
+        if (Number(price) * Number(amount) > user.cash) {
+          let sum = (Number(price) * Number(amount) - user.cash)
+          sum = sum - sum % 1000 + 1000
+          alert(`Вам нехватает средств. нужен кредит минимум на ${sum}`)
+        } else {
+          const person = {
+            ...user,
+            cash: user.cash - this.total,
+            stocks: [...user.stocks, {
+              id,
+              name,
+              price: Number(price),
+              amount: Number(amount),
+              cashFlow: Number(cashFlow),
+              cashFlowAbility
+            }]
+          }
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
+          this.$router.push('/')
         }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-        this.$router.push('/')
       },
       checkForDigit(event) {
         const name = event.target.name

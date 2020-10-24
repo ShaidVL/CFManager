@@ -46,10 +46,16 @@
     },
     methods: {
       chooseProfession(id) {
-        const person = this.profession.find(person => person.id === id)
+        const user = this.profession.find(person => person.id === id)
+        const cashFlow = user.salary - (user.taxes + user.homeMortgagePayment + user.schoolLoanPayment + user.carLoanPayment + user.creditCardPayment + user.retailPayment + user.otherExpenses)
+        const person = {
+          ...user,
+          cash: user.savings + cashFlow,
+        }
         localStorage.setItem('user', JSON.stringify(person))
         this.$store.commit('setProfession', person)
-        this.$router.push('/investpac')
+        // this.$router.push('/investpac')
+        this.$router.push('/')
       },
     },
   }

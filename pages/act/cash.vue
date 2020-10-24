@@ -1,11 +1,23 @@
 <template>
   <div>
     <button @click="$router.push('/act')">Назад</button>
-    <div><button @click="getMoney">Получить деньги</button><input v-model="getCash" name="getCash" type="text" @input="checkForDigit"></div>
-    <div><button @click="spendMoney">Потратить деньги</button><input v-model="spendCash" name="spendCash" type="text" @input="checkForDigit"></div>
-    <div><button @click="getSalary">Получить зарплату</button> {{cashFlow}}$</div>
-    <div><button @click="payExpense">Выплатить общий расход</button> {{user.totalExpenses}}$</div>
-    <div><button @click="setMoney">Указать вручную</button><input v-model="setCash" name="indicateCash" type="text" @input="checkForDigit"></div>
+    <div>
+      <button @click="getMoney">Получить деньги</button>
+      <input v-model="getCash" name="getCash" type="text" @input="checkForDigit"></div>
+    <div>
+      <button @click="spendMoney">Потратить деньги</button>
+      <input v-model="spendCash" name="spendCash" type="text" @input="checkForDigit"></div>
+    <div>
+      <button @click="getSalary">Получить зарплату</button>
+      {{cashFlow}}$
+    </div>
+    <div>
+      <button @click="payExpense">Выплатить общий расход</button>
+      {{user.totalExpenses}}$
+    </div>
+    <div>
+      <button @click="setMoney">Указать вручную</button>
+      <input v-model="indicateCash" name="indicateCash" type="text" @input="checkForDigit"></div>
   </div>
 </template>
 
@@ -47,33 +59,56 @@
       },
       spendMoney() {
         const user = this.$store.state.user
-        const person = {
-          ...user,
-          cash: user.cash - Number(this.spendCash)
+        if (Number(this.spendCash) > user.cash) {
+          let sum = (Number(this.spendCash) - user.cash)
+          sum = sum - sum % 1000 + 1000
+          alert(`Вам нехватает средств. нужен кредит минимум на ${sum}`)
+        } else {
+          const person = {
+            ...user,
+            cash: user.cash - Number(this.spendCash)
+          }
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
+          this.$router.push('/')
         }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-        this.$router.push('/')
       },
       getSalary() {
         const user = this.$store.state.user
-        const person = {
-          ...user,
-          cash: user.cash + this.cashFlow
+        if (this.cashFlow + user.cash < 0) {
+          const person = {
+            ...user,
+            bankrupt: true
+          }
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
+          alert(`Вы банкрот, следуйте инструкциям или игра окончена`)
+        } else {
+          const person = {
+            ...user,
+            cash: user.cash + this.cashFlow,
+            bankrupt: false
+          }
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
+          this.$router.push('/')
         }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-        this.$router.push('/')
       },
       payExpense() {
         const user = this.$store.state.user
-        const person = {
-          ...user,
-          cash: user.cash - this.user.totalExpenses
+        if (this.user.totalExpenses > user.cash) {
+          let sum = this.user.totalExpenses - user.cash
+          sum = sum - sum % 1000 + 1000
+          alert(`Вам нехватает средств. нужен кредит минимум на ${sum}`)
+        } else {
+          const person = {
+            ...user,
+            cash: user.cash - this.user.totalExpenses
+          }
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
+          this.$router.push('/')
         }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-        this.$router.push('/')
       },
       setMoney() {
         const user = this.$store.state.user

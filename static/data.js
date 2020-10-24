@@ -25,7 +25,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 2,
@@ -53,7 +54,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 3,
@@ -81,7 +83,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 4,
@@ -109,7 +112,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 5,
@@ -137,7 +141,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 6,
@@ -165,7 +170,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 7,
@@ -193,7 +199,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 8,
@@ -221,7 +228,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 9,
@@ -249,7 +257,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 10,
@@ -277,7 +286,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 11,
@@ -305,7 +315,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   },
   {
     id: 12,
@@ -333,7 +344,8 @@ export const profession = [
     stocks: [],
     realEstate: [],
     business: [],
-    other: []
+    other: [],
+    bankrupt: false
   }
 ]
 export const investmentPackage = [
