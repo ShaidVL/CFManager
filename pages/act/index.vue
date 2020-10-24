@@ -30,9 +30,6 @@
       <button @click="goToFastTrack">Перейти на быстрый круг</button>
       <hr>
     </div>
-    <div>
-      <button @click="newGame">Новая игра</button>
-    </div>
   </div>
 </template>
 
@@ -57,11 +54,6 @@
       }
     },
     methods: {
-      newGame() {
-        localStorage.removeItem('user')
-        this.$store.commit('newGame')
-        this.$router.push('/profession')
-      },
       goToFastTrack(){
         const person = {
         ...this.user,

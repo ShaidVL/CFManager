@@ -20,7 +20,7 @@
     </div>
     <br>
     <div>
-      <button @click="getSalary">Получить зарплату</button>
+      <button @click="getSalary">Cash Flow</button>
       {{cashFlow}}$
     </div>
     <hr>
@@ -28,6 +28,8 @@
       <div>Название: <input v-model="name" type="text"></div>
       <br>
       <div>Доходность: <input v-model="businessYield" name="businessYield" type="text" @input="checkForDigit"></div>
+      <br>
+      <div>Стоимость: <input v-model="businessPrice" name="businessPrice" type="text" @input="checkForDigit"></div>
       <br>
       <div>
         <button @click="addBusiness">Добавить</button>
@@ -52,7 +54,8 @@
         getCash: 0,
         spendCash: 0,
         name: '',
-        businessYield: '',
+        businessYield: 0,
+        businessPrice: 0,
       }
     },
     computed: {
@@ -60,7 +63,7 @@
         'user'
       ]),
       cashFlow() {
-        return this.user.initialCashFlow + this.user.business.reduce((acc, item) => acc + item.yield, 0)
+        return this.user.initialCashFlow + (this.user.business && this.user.business.reduce((acc, item) => acc + item.yield, 0))
       }
     },
     methods: {
@@ -96,14 +99,21 @@
 
       },
       addBusiness() {
-        const id = this.user.business.length > 0 ? this.user.business[this.user.business.length - 1].id + 1 : 1
-        const person = {
-          ...this.user,
-          business: [...this.user.business, {id, name: this.name, yield: Number(this.businessYield)}],
+        if (Number(this.businessPrice) > this.user.cash) {
+          alert(`Вам нехватает средств.`)
+        } else {
+          const id = this.user.business.length > 0 ? this.user.business[this.user.business.length - 1].id + 1 : 1
+          const person = {
+            ...this.user,
+            cash: this.user.cash - Number(this.businessPrice),
+            business: [...this.user.business, {id, name: this.name, yield: Number(this.businessYield)}],
+          }
+          this.name = ''
+          this.businessYield = 0
+          this.businessPrice = 0
+          localStorage.setItem('user', JSON.stringify(person))
+          this.$store.commit('setProfession', person)
         }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-
       },
       removeBusiness(id) {
         const person = {

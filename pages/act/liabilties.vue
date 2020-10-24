@@ -16,7 +16,7 @@
       <button @click="getLoan" :disabled="!getCreditIsValid">Получить кредит банка</button>
       <div v-if="!getCreditIsValid">число должно быть кратно 1000</div>
     </div>
-    <hr>
+    <br>
     <div>
       <input v-model="repayCredit" name="repayCredit" type="text" @input="checkForDigit" @change="checkSum">
       <button @click="repayLoan" :disabled="!repayCreditIsValid">Погасить кредит банка</button>

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p>{{user.name}} {{user.cash}} <button @click="$router.push('/act')">Действие</button></p>
+    <div>{{user.name}} {{user.cash}}$
+      <button @click="$router.push('/act')">Действие</button>
+      <button @click="newGame">Новая игра</button>
+    </div>
     <Nuxt/>
   </div>
 </template>
@@ -15,9 +18,11 @@
       })
     },
     methods:{
-      goToAct(){
-        this.$router.push('/act')
-      }
+      newGame() {
+        localStorage.removeItem('user')
+        this.$store.commit('newGame')
+        this.$router.push('/profession')
+      },
     }
   }
 </script>

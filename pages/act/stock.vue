@@ -1,16 +1,24 @@
 <template>
   <div>
     <button @click="$router.push('/act')">Назад</button>
+    <hr>
     <div>Покупка Акций/Депозита</div>
+    <br>
     <div>Наименование<input v-model="name" type="text" @input="checkForDigit"></div>
+    <br>
     <div>Количество<input v-model="amount" name="amount" type="number" @input="checkForDigit"></div>
+    <br>
     <div>Цена акции<input v-model="price" name="price" type="number" @input="checkForDigit"></div>
+    <hr>
 
     <div><input v-model="cashFlowAbility" type="checkbox">Пассивный доход</div>
+    <br>
     <div>Доход <input v-model="cashFlow" name="cashFlow" type="number" @input="checkForDigit"
                       :disabled="!cashFlowAbility"></div>
+    <hr>
 
     <div>Цена покупки: {{total}}</div>
+    <br>
     <button @click="addAsset">Купить</button>
   </div>
 </template>

@@ -1,23 +1,24 @@
 <template>
   <div>
     <button @click="$router.push('/act')">Назад</button>
+    <hr>
     <div>
       <button @click="getMoney">Получить деньги</button>
       <input v-model="getCash" name="getCash" type="text" @input="checkForDigit"></div>
+    <br>
     <div>
       <button @click="spendMoney">Потратить деньги</button>
       <input v-model="spendCash" name="spendCash" type="text" @input="checkForDigit"></div>
+    <br>
     <div>
-      <button @click="getSalary">Получить зарплату</button>
+      <button @click="getSalary">Cash Flow</button>
       {{cashFlow}}$
     </div>
+    <br>
     <div>
       <button @click="payExpense">Выплатить общий расход</button>
       {{user.totalExpenses}}$
     </div>
-    <div>
-      <button @click="setMoney">Указать вручную</button>
-      <input v-model="indicateCash" name="indicateCash" type="text" @input="checkForDigit"></div>
   </div>
 </template>
 
@@ -109,16 +110,6 @@
           this.$store.commit('setProfession', person)
           this.$router.push('/')
         }
-      },
-      setMoney() {
-        const user = this.$store.state.user
-        const person = {
-          ...user,
-          cash: Number(this.indicateCash)
-        }
-        localStorage.setItem('user', JSON.stringify(person))
-        this.$store.commit('setProfession', person)
-        this.$router.push('/')
       },
       checkForDigit(event) {
         const name = event.target.name

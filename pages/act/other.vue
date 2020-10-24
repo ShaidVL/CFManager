@@ -1,12 +1,17 @@
 <template>
   <div>
     <button @click="$router.push('/act')">Назад</button>
+    <hr>
     <div>Добавить актив</div>
+    <br>
     <div>Наименование<input v-model="name" type="text" @input="checkForDigit"></div>
+    <br>
     <div>Количество<input v-model="amount" name="amount" type="text" @input="checkForDigit"></div>
+    <br>
     <div>Общая стоимость<input v-model="price" name="price" type="text" @input="checkForDigit"></div>
-
+    <br>
     <div>Цена покупки: {{price}}</div>
+    <br>
     <button @click="addAsset">Купить</button>
   </div>
 </template>

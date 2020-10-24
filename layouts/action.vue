@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{user.name}} {{user.cash}} <button @click="$router.push('/')">Завершить действие</button></p>
+    <div>{{user.name}} {{user.cash}}$ <button @click="$router.push('/')">На главную</button></div>
     <Nuxt/>
   </div>
 </template>

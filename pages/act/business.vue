@@ -1,14 +1,22 @@
 <template>
   <div>
     <button @click="$router.push('/act')">Назад</button>
+    <hr>
     <div>Бизнес</div>
+    <br>
     <div>Наименование: <input v-model="name" type="text"></div>
+    <br>
     <div>Стоимость: <input v-model="price" name="price" type="text" @input="checkForDigit" @change="onChange"></div>
+    <br>
     <div>Долг: <input v-model="debt" name="debt" type="text" @input="checkForDigit" @change="onChange"></div>
+    <hr>
     <div><input v-model="minus" type="checkbox"> Отрицательный пассивный доход</div>
+    <br>
     <div>Пассивный доход: <span v-if="minus">- </span><input v-model="cashFlow" name="cashFlow" type="text" @input="checkForDigit"></div>
+    <hr>
 
     <div>Цена покупки: {{downPay}}</div>
+    <br>
     <button @click="addAsset">Купить</button>
   </div>
 </template>

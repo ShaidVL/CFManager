@@ -24,7 +24,13 @@
             <p>Розничные расходы:{{person.retailPayment}}</p>
             <p>Другие расходы:{{person.otherExpenses}}</p>
           </div>
-          <p>Ежемесячный доход:</p>
+          <p>Ежемесячный
+            доход:{{person.salary-(person.taxes+
+            person.homeMortgagePayment+
+            person.schoolLoanPayment+person.
+            carLoanPayment+person.creditCardPayment+
+            person.retailPayment+person.otherExpenses)
+            }}</p>
           <button @click="chooseProfession(person.id)">Выбрать</button>
         </div>
       </div>
