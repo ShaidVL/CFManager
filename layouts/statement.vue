@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div>{{user.name}} {{user.cash}}$
-      <button @click="$router.push('/act')">Действие</button>
-      <button @click="newGame">Новая игра</button>
+    <div class="row p-1">
+      <div class="col-4 text-left">{{user.name}} {{user.cash}}$</div>
+      <div class="col-4 text-center"><button @click="$router.push('/act')">Действие</button></div>
+      <div class="col-4 text-right"><button @click="newGame">Новая игра</button></div>
     </div>
     <Nuxt/>
   </div>
